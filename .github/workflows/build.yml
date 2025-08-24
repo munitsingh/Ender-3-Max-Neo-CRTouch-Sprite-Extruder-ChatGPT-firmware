@@ -1,0 +1,44 @@
+name: Build Marlin Firmware (E3 Max Neo T1)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install PlatformIO
+        run: |
+          python -m pip install --upgrade pip
+          pip install platformio
+
+      - name: Download Marlin 2.1.2
+        run: |
+          wget -q https://github.com/MarlinFirmware/Marlin/archive/refs/tags/2.1.2.zip -O marlin.zip
+          unzip -q marlin.zip
+          mv Marlin-2.1.2 marlin-src
+
+      - name: Apply custom configs
+        run: |
+          cp Marlin/Configuration.h marlin-src/Marlin/Configuration.h
+          cp Marlin/Configuration_adv.h marlin-src/Marlin/Configuration_adv.h
+          sed -i 's/^default_envs.*/default_envs = STM32F103RET6_creality/' marlin-src/platformio.ini
+
+      - name: Build firmware
+        run: |
+          platformio run -d marlin-src -e STM32F103RET6_creality
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware-bin
+          path: marlin-src/.pio/build/STM32F103RET6_creality/firmware.bin
