@@ -33,9 +33,9 @@ jobs:
           cp Marlin/Configuration_adv.h marlin-src/Marlin/Configuration_adv.h
           sed -i 's/^default_envs.*/default_envs = STM32F103RET6_creality/' marlin-src/platformio.ini
 
-      - name: Build firmware
-        run: |
-          platformio run -d marlin-src -e STM32F103RET6_creality
+      - name: Build Marlin Firmware (T1)
+  run: platformio run -d marlin-src -e STM32F103RE_creality
+
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
