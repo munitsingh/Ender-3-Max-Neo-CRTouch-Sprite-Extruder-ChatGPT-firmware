@@ -1,0 +1,29 @@
+name: Build Marlin Firmware (T1)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Setup PlatformIO
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install PlatformIO
+        run: pip install platformio
+
+      - name: Build firmware
+        run: platformio run
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: firmware-bin
+          path: |
+            .pio/build/*/firmware*.bin
