@@ -1,30 +1,24 @@
-/**
- * Configuration_adv.h for Ender 3 Max Neo + Sprite Pro + CR Touch + 4.2.2
- * Marlin 2.1.x
- */
+#ifndef CONFIGURATION_ADV_H
+#define CONFIGURATION_ADV_H
 
-// -------------------- EEPROM --------------------
-#define EEPROM_SETTINGS
-#define EEPROM_AUTO_INIT
+// Bed leveling options
+#define LEVELED_PLATE_SETUP
+#define PROBE_SKIPPED_MIN_HEIGHT 0.1
 
-// -------------------- Motion Settings --------------------
-#define JUNCTION_DEVIATION
-#define LIN_ADVANCE
+// BLTouch settings
+#define BLTOUCH_SET_5V_MODE
+#define BLTOUCH_DELAY 500
+#define BLTOUCH_FORCE_SW_MODE
 
-// -------------------- Bed Leveling Helpers --------------------
-#define BABYSTEPPING
-#define BABYSTEP_ZPROBE_OFFSET
-#define DOUBLECLICK_FOR_Z_BABYSTEPPING
-#define BABYSTEP_MULTIPLICATOR_Z 5
+// Filament runout sensor, if present
+//#define FILAMENT_RUNOUT_SENSOR
 
-// -------------------- Probe / Homing --------------------
-#define Z_AFTER_PROBING 10   // Raise nozzle after probing
+// Input shaping (optional—only if you feel comfortable tuning it)
+// #define INPUT_SHAPER
+// #define SHAPER_FREQ_X 40
+// #define SHAPER_FREQ_Y 40
 
-// -------------------- Thermal Protection --------------------
-#define THERMAL_PROTECTION_HOTENDS
-#define THERMAL_PROTECTION_BED
+// Linear Advance is NOT enabled (not recommended with silent boards)
+// #define LIN_ADVANCE
 
-// -------------------- Filament --------------------
-#define ADVANCED_PAUSE_FEATURE
-#define PARK_HEAD_ON_PAUSE
-#define FILAMENT_LOAD_UNLOAD_GCODES
+#endif // CONFIGURATION_ADV_H
